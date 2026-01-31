@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 40px 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+header span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* 🔑 prevents content going outside card */
+}
+
+/* Top bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.top-bar h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.add-btn {
+    text-decoration: none;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Table wrapper (IMPORTANT) */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table */
+table {
+    width: 100%;
+    min-width: 700px; /* 🔑 keeps columns stable */
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background: #f5f7fa;
+}
+
+thead th {
+    padding: 14px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 2px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+tbody td {
+    padding: 14px;
+    font-size: 14px;
+    color: #444;
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+}
+
+tbody tr:hover {
+    background: #f9fafc;
+}
+
+/* Actions column FIX */
+.actions {
+    min-width: 120px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.actions a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #fff;
+    margin: 4px 0;
+    transition: 0.3s;
+    width: 70px;
+}
+
+.delete {
+    background: #e74c3c;
+}
+
+.edit {
+    background: #27ae60;
+}
+
+.actions a:hover {
+    opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 28px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    /* Hide heavy columns on mobile */
+    .col-id,
+    .col-password {
+        display: none;
+    }
+
+    /* Stack buttons vertically */
+    .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+}
+
+  </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>User Management System</h1>
+        <span>UMS – Manage users efficiently</span>
+    </header>
+
+    <div class="container">
+        <div class="top-bar">
+            <h2>User Data</h2>
+            <a href="/register" class="add-btn">+ Add New User</a>
+        </div>
+<div class="table-wrapper">
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-id">ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th class="col-password">Password</th>
+                    <th>Mobile</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% user.forEach((value)=>{ %>
+                    <tr>
+                        <td class="col-id">
+                            <%= value._id %>
+                        </td>
+                        <td>
+                            <%= value.Firstname %>
+                                <%= value.Lastname %>
+                        </td>
+                        <td>
+                            <%= value.Email %>
+                        </td>
+                        <td class="col-password">
+                            <%= value.Password.substring(0, 15) %>...
+                        </td>
+                        <td>
+                            <%= value.Mobile %>
+                        </td>
+                        <td class="actions">
+                            <a href="/delete/<%= value._id %>" class="delete">Delete</a>
+                            <a href="/edit/<%= value._id %>" class="edit">Edit</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+</div>
+
+    </div>
+
+</body>
+
+</html>
